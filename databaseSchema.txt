@@ -1,0 +1,100 @@
+--  NOTES
+--  Status for Orders: pending(default), delivered, cancelled
+--  Payment for Orders: unpaid/ paid
+--  Current name of DB: rapi
+
+
+CREATE TABLE `admin` (
+  `id` int(6) UNSIGNED NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL
+);
+
+INSERT INTO `admin` (`id`, `email`, `password`) VALUES (1, 'admin@mail.com', 'admin');
+
+CREATE TABLE `editors` (
+  `id` int(6) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `firstname` varchar(30) NOT NULL,
+  `lastname` varchar(30) NOT NULL,
+  `mobile` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  `pin` varchar(50) DEFAULT NULL,
+  `code` varchar(50) NOT NULL,
+  `reg_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE `users` (
+  `id` int(6) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `firstname` varchar(30) NOT NULL,
+  `lastname` varchar(30) NOT NULL,
+  `mobile` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  `pin` varchar(50) DEFAULT NULL,
+  `reg_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE `vendors` (
+  `id` int(6) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `firstname` varchar(30) NOT NULL,
+  `lastname` varchar(30) DEFAULT NULL,
+  `mobile` varchar(15) DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `password` varchar(20) DEFAULT NULL,
+  `city` varchar(20) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  `lat` varchar(20) DEFAULT NULL,
+  `longd` varchar(20) DEFAULT NULL,
+  `pinc` varchar(10) DEFAULT NULL,
+  `shop_name` varchar(50) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `verified` varchar(10) DEFAULT NULL,
+  `reg_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE `products` (
+  `id` int(6) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `vendor_id` int(6) UNSIGNED NOT NULL,
+  `brand_name` varchar(30) DEFAULT NULL,
+  `category` varchar(30) DEFAULT NULL,
+  `sub_category` varchar(30) DEFAULT NULL,
+  `product_name` varchar(30) DEFAULT NULL,
+  `product_code` varchar(30) DEFAULT NULL,
+  `description` varchar(30) DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `quantity` varchar(30) DEFAULT NULL,
+  `mrp` varchar(30) DEFAULT NULL,
+  `selling_price` varchar(30) DEFAULT NULL,
+  `newproducts` tinyint(1) NOT NULL DEFAULT '0',
+  `featured` tinyint(1) NOT NULL DEFAULT '0',
+  `popular` tinyint(1) NOT NULL DEFAULT '0',
+  `HSN_code` varchar(30) DEFAULT NULL,
+  `fk_link` varchar(30) DEFAULT NULL,
+  `sd_link` varchar(30) DEFAULT NULL,
+  `az_link` varchar(30) DEFAULT NULL,
+  `x_link` varchar(30) DEFAULT NULL,
+  `y_link` varchar(30) DEFAULT NULL,
+  `reg_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (vendor_id) REFERENCES vendors(id) ON DELETE CASCADE
+);
+
+CREATE TABLE orders (
+    orderId int(6) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    vendorId int(6) UNSIGNED NOT NULL ,
+    userId int(6) UNSIGNED NOT NULL ,
+    productId int(6) UNSIGNED NOT NULL ,
+    payment VARCHAR(20) DEFAULT 'unpaid',
+    status VARCHAR(20) DEFAULT 'pending',
+    datePlaced TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deliveryDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    cancelDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (vendorId) REFERENCES vendors(id) ON DELETE CASCADE,
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (productId) REFERENCES products(id) ON DELETE CASCADE
+);

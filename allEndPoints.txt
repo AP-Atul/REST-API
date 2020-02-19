@@ -1,0 +1,139 @@
+REST API V2
+
+Here are the API endpoints/ urls, which can be used
+to read and add data to/ from the database.
+
+The values defined are case-sensitive. All values are
+compulsary. Since it is a JSON they are all Strings
+NODEJS will take care of adding proper datatype to sql
+
+POST REQUESTS: 
+
+    1. /register
+        accepting default values to sign up user.
+        Values : firstname, lastname, mobile, email, password, city, address, pin
+
+
+    2. /login
+        logs in the user.
+        Values : email, password
+
+
+    3. /loginAdmin
+        log in the Admin.
+        Values : email, password
+
+
+    4. /registerEditor
+        accepting default values to sign up editor.
+        Values : firstname, lastname, mobile, email, password, city, address, pin, code
+
+
+    5. /loginEditor
+        logs in editor with username and password.
+        Values : email, password
+
+
+    6. /registerVendor
+        accepting default values to sign up vendor.
+        Values : firstname, lastname, mobile, email, password, city, address, lat, longd, pinc, shop_name, status, verified
+
+
+    7. /loginVendor
+        logs in vendor with username and password.
+        Values : email, password
+
+
+    8. /addStatusForVendor
+        update status to any (Enable/Disable)  
+        Values : status, vendorId
+
+
+    9. /addVerifiedForVendor
+        update verify to any (yes / no)
+        Values : status, vendorId
+
+    10. /addProduct
+        add product in the database.
+        Values : vendor_id, brand_name, category, sub_category, product_name, product_code, description, image_url, quantity, mrp, selling_price, newproducts, featured, popular, HSN_code, fk_link, sd_link, az_link, x_link, y_link
+
+
+GET REQUESTS:
+
+    11. /getEditorById
+        get all details about the Editor by providing Id.
+        Values : editorId
+
+
+    12. /getVendorById
+        get all details about the Vendor by providing Id.
+        Values : vendorId
+
+
+    13. /getVendorByShopName
+        get all details about the Vendor by providing shop name.
+        Values : shop_name
+
+
+    14. /getAllVendorsStatus
+        get all vendors with status "Enable or Disable".
+        Values : status
+
+
+    15. /getAllVendorsVerify
+        get all vendors with verify "yes or no".
+        Values : verify
+
+
+    16. /getStatusOfVendorById
+        read status of specific vendor.
+        Values : vendorId
+
+
+    17. /getVerifyOfVendorById
+        read verfiy of specific vendor.
+        Values : vendorId
+
+    18. /addStatusForVendor
+        update status to any (Enable/Disable)  
+        Values : status, vendorId
+
+
+    19. /addVerifiedForVendor
+        update verify to any (yes / no)
+        Values : status, vendorId
+
+
+    20. /getAllProductsWithCategory
+        get all products under category specified.
+        Values : category
+
+
+    21. /getAllProductsWithSubCategory
+        get all products under sub-category specified.
+        Values : subCategory
+
+    22. /getProductsWithCity
+        get all products available in given city.
+        Values : city
+
+
+    23. /getAllProductsForVendor
+        get a list of all products of the vendor.
+        Values : vendorId
+
+
+    24. /getProductWithId
+        get details of one product using Id.
+        Values : productId
+
+
+    25. /getAllFeaturedProducts
+        get a list of all Featured Products.
+        Values : NULL (no values are required)
+
+    26. /getProductImageWithId
+        get the image url for the product.
+        Values : productId
+
+    
